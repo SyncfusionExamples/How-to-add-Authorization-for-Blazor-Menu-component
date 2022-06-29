@@ -1,0 +1,47 @@
+﻿@page "/adminpage"
+@using Syncfusion.Blazor.Navigations
+@attribute [Authorize(Roles = "user, admin")]
+@if (items != null)
+{
+    <SfMenu TValue="MenuItem">
+        <MenuItems>
+            @foreach (var item in items)
+            {
+                <MenuItem Text="@item.Text"></MenuItem>
+            }
+        </MenuItems>
+    </SfMenu>
+}
+
+@code{
+    private List<MenuData> items;
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        var user = (await authenticationStateTask).User;
+        items = new List<MenuData>();
+        items.Add(new MenuData { Text = "Home" });
+        items.Add(new MenuData { Text = "Reports" });
+        if (user.IsInRole("user"))
+        {
+            items.Add(new MenuData { Text = "User" });
+        }
+        if (user.IsInRole("admin"))
+        {
+            items.Add(new MenuData { Text = "Adminstration" });
+        }
+        items.Add(new MenuData { Text = "Contact Us" });
+    }
+
+    public class MenuData
+    {
+        public string Text
+        {
+            get;
+            set;
+        }
+    }
+}
