@@ -1,6 +1,5 @@
 # How to Add Authorization for Blazor Menu Component
 
-**Repository Description**  
 This repository contains a Blazor sample that demonstrates how to apply authorization to the Syncfusion Blazor Menu Bar component and display different menu items based on the logged‑in user’s authorization status.
 
 This example shows how to render different menus for users after login using authorization logic together with the Syncfusion Blazor Menu Bar component.
